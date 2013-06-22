@@ -199,16 +199,5 @@ public final class CSSParserTest {
 
 	}
 
-	@Test
-	public void testFileBasic() throws Exception {
 
-		String contents = IOUtils.toString(this.getClass().getResourceAsStream("css.css"), "UTF-8");
-
-		List<Rule> rules = CSSParser.parse(contents);
-
-		for (Rule rule : rules) {
-			System.out.println(rule);
-		}
-
-	}
 }
