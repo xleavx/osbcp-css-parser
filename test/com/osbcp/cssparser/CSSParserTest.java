@@ -199,5 +199,12 @@ public final class CSSParserTest {
 
 	}
 
+    @Test
+    public void testLenientParsing() throws Exception {
+         List<Rule> rules = CSSParser.parse(".calibre8 { display: block; margin-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 2em; text-align: justify; text-indent: 0 }");
+
+        Assert.assertEquals(1, rules.size() );
+    }
+
 
 }

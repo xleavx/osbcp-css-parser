@@ -131,7 +131,12 @@ public final class CSSParser {
 				break;
 			}
 			case INSIDE_VALUE: {
-				parseValue(c);
+                parseValue(c);
+
+                if ( c == Chars.BRACKET_END ) {
+                    parsePropertyName(rules, c);
+                }
+
 				break;
 			}
 			case INSIDE_VALUE_ROUND_BRACKET: {
@@ -158,7 +163,7 @@ public final class CSSParser {
 		// Special case if the value is a data uri, the value can contain a ;
 		//		boolean valueHasDataURI = valueName.toLowerCase().indexOf("data:") != -1;
 
-		if (Chars.SEMI_COLON.equals(c)) {
+		if (Chars.SEMI_COLON.equals(c) || Chars.BRACKET_END.equals(c) ) {
 
 			// Store it in the values map
 			PropertyValue pv = new PropertyValue(propertyName.trim(), valueName.trim());
@@ -181,12 +186,7 @@ public final class CSSParser {
 
 			throw new IncorrectFormatException(ErrorCode.FOUND_COLON_WHILE_READING_VALUE, "The value '" + valueName.trim() + "' for property '" + propertyName.trim() + "' in the selector '" + selectorName.trim() + "' had a ':' character.");
 
-		} else if (Chars.BRACKET_END.equals(c)) {
-
-			throw new IncorrectFormatException(ErrorCode.FOUND_END_BRACKET_BEFORE_SEMICOLON, "The value '" + valueName.trim() + "' for property '" + propertyName.trim() + "' in the selector '" + selectorName.trim() + "' should end with an ';', not with '}'.");
-
 		} else {
-
 			valueName += c;
 			return;
 
@@ -260,17 +260,6 @@ public final class CSSParser {
 				rule.addPropertyValue(pv);
 			}
 
-			//			for (Entry<String, String> entry : map.entrySet()) {
-			//
-			//				String property = entry.getKey();
-			//				String value = entry.getValue();
-			//
-			//				PropertyValue propertyValue = new PropertyValue(property, value);
-			//				rule.addPropertyValue(propertyValue);
-			//
-			//			}
-
-			//			map.clear();
 			values.clear();
 
 			if (!rule.getPropertyValues().isEmpty()) {
