@@ -201,15 +201,11 @@ public final class CSSParserTest {
 	}
 
 	@Test
-	public void testFileBasic() throws Exception {
+    public void testLenientParsing() throws Exception {
+         List<Rule> rules = CSSParser.parse(".calibre8 { display: block; margin-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 2em; text-align: justify; text-indent: 0 }");
 
-		String contents = IOUtils.toString(this.getClass().getResourceAsStream("css.css"), "UTF-8");
+        Assert.assertEquals(1, rules.size() );
+    }
 
-		List<Rule> rules = CSSParser.parse(contents);
 
-		for (Rule rule : rules) {
-			System.out.println(rule);
 		}
-
-	}
-}
