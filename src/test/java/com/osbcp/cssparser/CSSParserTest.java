@@ -19,10 +19,9 @@ package com.osbcp.cssparser;
 
 import java.util.List;
 
-import junit.framework.Assert;
-
-import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
+import org.apache.commons.io.IOUtils;
 
 @SuppressWarnings("deprecation")
 public final class CSSParserTest {
@@ -241,21 +240,24 @@ public final class CSSParserTest {
 
 	@Test
 	public void testFileBasic() throws Exception {
+		System.out.println(this.getClass().getResource("css.css"));
 		String contents = IOUtils.toString(
 				this.getClass().getResourceAsStream("css.css"), "UTF-8");
 		List<Rule> rules = CSSParser.parse(contents);
-
-		for (Rule rule : rules) {
-			System.out.println(rule);
-		}
+		Assert.assertEquals(406, rules.size());
+		// for (Rule rule : rules) {
+		// System.out.println(rule);
+		// }
 	}
 
 	@Test
 	public void testFileAdvancedd() throws Exception {
-		String contents = IOUtils.toString(this.getClass().getResourceAsStream("sample2.css"), "UTF-8");
+		String contents = IOUtils.toString(
+				this.getClass().getResourceAsStream("sample2.css"), "UTF-8");
 		List<Rule> rules = CSSParser.parse(contents);
-		for (Rule rule : rules) {
-			System.out.println(rule);
-		}
+		Assert.assertEquals(1852, rules.size());
+		// for (Rule rule : rules) {
+		// System.out.println(rule);
+		// }
 	}
 }

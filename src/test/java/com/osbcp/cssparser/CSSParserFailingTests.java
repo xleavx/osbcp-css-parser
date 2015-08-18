@@ -19,44 +19,42 @@ package com.osbcp.cssparser;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import com.osbcp.cssparser.IncorrectFormatException.ErrorCode;
 
-@SuppressWarnings("deprecation")
 public final class CSSParserFailingTests {
 
 	@Test
 	public void testCommaFirstAsSelector() throws Exception {
 
 		try {
-			CSSParser
-					.parse("alpha { width: 100px; } , beta { height: 200px; } ");
+			CSSParser.parse("alpha { width: 100px; } \n , beta { height: 200px; } ");
 			Assert.fail();
 		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(
-					ErrorCode.FOUND_COLON_WHEN_READING_SELECTOR_NAME,
-					e.getErrorCode());
+			Assert.assertEquals(ErrorCode.FOUND_COLON_WHEN_READING_SELECTOR_NAME, e.getErrorCode());
+			Assert.assertTrue(e.getMessage().endsWith("Line number 2."));
 		}
 
 	}
 
 	@Test
 	public void testValueShouldEndWithSemiColon() throws Exception {
-		CSSParser.parse("alpha { width: 100px }");
+			Assert.assertEquals("[width: 100px]",CSSParser.parse("alpha { width: 100px }").get(0).getPropertyValues().toString());
 	}
 
 	@Test
 	public void testMissingColon() throws Exception {
 
 		try {
-			CSSParser.parse("alpha { color red; }");
+			CSSParser.parse("\n\n\n\n\n alpha { color red; }");
 			Assert.fail();
 		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(
-					ErrorCode.FOUND_SEMICOLON_WHEN_READING_PROPERTY_NAME,
-					e.getErrorCode());
+			Assert.assertEquals(ErrorCode.FOUND_SEMICOLON_WHEN_READING_PROPERTY_NAME, e.getErrorCode());
+			Assert.assertTrue(e.getMessage().endsWith("Line number 6."));
 		}
 
 	}
+
 
 	@Test
 	public void testMissingSemiColon() throws Exception {
