@@ -5,7 +5,7 @@
 	<version>1.7-SNAPSHOT</version>
 	<name>Java CSS Parser</name>
 	<description>A simple CSS parser in Java.</description>
-	<url>https://github.com/corgrath/osbcp-css-parser</url>
+	<url>${github.url}</url>
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -29,6 +29,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.user>raisercostin</github.user>
 		<github.repo>osbcp-css-parser</github.repo>
+		<github.url>https://github.com/${github.user}/${github.repo}</github.url>
 		<bintray.user>raisercostin</bintray.user>
 		<bintray.repo>maven</bintray.repo>
 		<bintray.package>osbcp-css-parser</bintray.package>
@@ -61,6 +62,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -69,7 +71,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
