@@ -17,10 +17,8 @@
 
 package com.osbcp.cssparser;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
-
 import com.osbcp.cssparser.IncorrectFormatException.ErrorCode;
 
 @SuppressWarnings("deprecation")
@@ -30,24 +28,20 @@ public final class CSSParserFailingTests {
 	public void testCommaFirstAsSelector() throws Exception {
 
 		try {
-			CSSParser.parse("alpha { width: 100px; } , beta { height: 200px; } ");
+			CSSParser
+					.parse("alpha { width: 100px; } , beta { height: 200px; } ");
 			Assert.fail();
 		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(ErrorCode.FOUND_COLON_WHEN_READING_SELECTOR_NAME, e.getErrorCode());
+			Assert.assertEquals(
+					ErrorCode.FOUND_COLON_WHEN_READING_SELECTOR_NAME,
+					e.getErrorCode());
 		}
 
 	}
 
 	@Test
 	public void testValueShouldEndWithSemiColon() throws Exception {
-
-		try {
-			CSSParser.parse("alpha { width: 100px }");
-			Assert.fail();
-		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(ErrorCode.FOUND_END_BRACKET_BEFORE_SEMICOLON, e.getErrorCode());
-		}
-
+		CSSParser.parse("alpha { width: 100px }");
 	}
 
 	@Test
@@ -57,21 +51,28 @@ public final class CSSParserFailingTests {
 			CSSParser.parse("alpha { color red; }");
 			Assert.fail();
 		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(ErrorCode.FOUND_SEMICOLON_WHEN_READING_PROPERTY_NAME, e.getErrorCode());
+			Assert.assertEquals(
+					ErrorCode.FOUND_SEMICOLON_WHEN_READING_PROPERTY_NAME,
+					e.getErrorCode());
 		}
 
 	}
 
 	@Test
 	public void testMissingSemiColon() throws Exception {
-
-		try {
-			CSSParser.parse("alpha { border: 1px solid green background-color:white; left: 0px; }");
-			Assert.fail();
-		} catch (IncorrectFormatException e) {
-			Assert.assertEquals(ErrorCode.FOUND_COLON_WHILE_READING_VALUE, e.getErrorCode());
-		}
-
+		Assert.assertEquals(
+				"[border: 1px solid green background-color:white, left: 0px]",
+				CSSParser
+						.parse("alpha { border: 1px solid green background-color:white; left: 0px; }")
+						.get(0).getPropertyValues().toString());
 	}
 
+	@Test
+	public void testFilterWithSemicolon() throws Exception {
+		Assert.assertEquals(
+				"[filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1), transform: rotate(90deg)]",
+				CSSParser
+						.parse(".fa-rotate-90 { filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); transform: rotate(90deg);	}")
+						.get(0).getPropertyValues().toString());
+	}
 }

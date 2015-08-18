@@ -183,9 +183,9 @@ public final class CSSParser {
 			return;
 
 		} else if (Chars.COLON.equals(c)) {
-
-			throw new IncorrectFormatException(ErrorCode.FOUND_COLON_WHILE_READING_VALUE, "The value '" + valueName.trim() + "' for property '" + propertyName.trim() + "' in the selector '" + selectorName.trim() + "' had a ':' character.");
-
+			valueName += c;
+			return;
+			//throw new IncorrectFormatException(ErrorCode.FOUND_COLON_WHILE_READING_VALUE, "The value '" + valueName.trim() + "' for property '" + propertyName.trim() + "' in the selector '" + selectorName.trim() + "' had a ':' character.");
 		} else {
 			valueName += c;
 			return;
