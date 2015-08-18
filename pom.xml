@@ -25,7 +25,7 @@
 		</developer>
 	</developers>
 	<properties>
-		<java.version>7</java.version>
+		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.user>raisercostin</github.user>
 		<github.repo>osbcp-css-parser</github.repo>
