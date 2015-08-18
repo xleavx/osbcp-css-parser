@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.osbcp</groupId>
 	<artifactId>cssparser</artifactId>
-	<version>1.8-SNAPSHOT</version>
+	<version>1.7-SNAPSHOT</version>
 	<name>Java CSS Parser</name>
 	<description>A simple CSS parser in Java.</description>
 	<url>${github.url}</url>
